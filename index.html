@@ -46,7 +46,7 @@
                     >ATTACK</button>
                 <button
                     id="special-attack"
-                    @click="specialAttack"
+                    @click="attack(true)"
                     >SPECIAL ATTACK</button>
                 <button
                     id="heal"
@@ -61,9 +61,9 @@
         <section class="row log">
             <div class="small-12 columns">
                 <ul>
-                    <li>
-
-                    </li>
+                    <template v-for="turn in turns">
+                    <li :class="turn.who + '-turn'">{{ turn.message }}</li>
+                    </template>
                 </ul>
             </div>
         </section>
