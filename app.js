@@ -12,30 +12,33 @@ new Vue({
 			this.logTurns('player', 'Game Started');
 		},
 		playerAttack: function (special){
-			amount = this.randomAmount(special);
-			this.monsterHelth -= amount;
-			this.logTurns('player', 'Player hits monster for ' + amount);
+			var damage = this.randomDamage(special);
+			this.monsterHelth -= damage;
+			this.logTurns('player', 'Player hits monster for ' + damage);
 		},
 		monsterAttack: function (){
-			amount = this.randomAmount();
-			this.playerHelth -= amount;
-			this.logTurns('monster', 'Monster hits monster for ' + amount);
+			var damage = this.randomDamage();
+			this.playerHelth -= damage;
+			this.logTurns('monster', 'Monster hits monster for ' + damage);
 		},
 		attack: function (special){
 			this.monsterAttack();
 			this.playerAttack(special);
 		},
 		heal: function (){
-			amountHeal = this.randomAmount();
-			this.playerHelth += amountHeal;
-			this.logTurns('player', 'Player heals for ' + amount);
+			if (this.playerHelth == 100) {
+				return;
+			}
 
-			amountAttack = this.randomAmount();
+			var damageHeal = this.randomDamage();
+			this.playerHelth += damageHeal;
+			this.logTurns('player', 'Player heals for ' + damage);
+
 			this.monsterAttack();
 		},
-		randomAmount: function (special){
-			min = (special?10:1);
-			max = (special?20:6);
+		randomDamage: function (special){
+			var min = (special?10:1);
+			var max = (special?20:6);
 			amout = Math
 				.floor(Math.random() * (max - min)) + min
 
