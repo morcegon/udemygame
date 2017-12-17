@@ -26,9 +26,12 @@ new Vue({
 			this.playerAttack(special);
 		},
 		heal: function (){
-			this.playerHelth += this.randomAmount();
-			this.playerHelth -= this.randomAmount();
-			this.monsterHelth -= this.randomAmount();
+			amountHeal = this.randomAmount();
+			this.playerHelth += amountHeal;
+			this.logTurns('player', 'Player heals for ' + amount);
+
+			amountAttack = this.randomAmount();
+			this.monsterAttack();
 		},
 		randomAmount: function (special){
 			min = (special?10:1);
@@ -51,6 +54,20 @@ new Vue({
 					who: who,
 					message: message
 				})
+		}
+	},
+	watch: {
+		monsterHelth: function (){
+			if (this.monsterHelth <= 0) {
+				alert('Congratulations, you win :)');
+				this.reset();
+			}
+		},
+		playerHelth: function (){
+			if (this.playerHelth <= 0) {
+				alert('Sorry, you loose :(');
+				this.reset();
+			}
 		}
 	}
 });
